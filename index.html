@@ -1,26 +1,55 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>hello web</title>
-        <script src='static/js/main.js'></script>
-    </head>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS2Android通信演示</title>
+    <style>
+        /* 页面样式，使按钮居中显示 */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+        }
 
-    <body>
-        <input id="input"/>
-        <button id="abs_btn">取绝对值</button>
-        <p id="abs_p"></p>
+        /* 按钮样式美化 */
+        #popupBtn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background-color: #1677ff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-        <script>
-            var btn = document.getElementById("abs_btn")
-            btn.addEventListener('click', function(){
-                var input = document.getElementById("input")
-                var content = input.value
-                var value = Number(content)
-                var result = `abs(${value}):${window.abs(value)}`
-
-                document.getElementById("abs_p").innerHTML = result
-            })
-        </script>
-    </body>
+        #popupBtn:hover {
+            background-color: #0f52ba;
+        }
+    </style>
+</head>
+<body>
+<!-- 中间的按钮 -->
+<button id="popupBtn">点击测试</button>
+<script>
+    // 获取按钮元素
+    const btn = document.getElementById('popupBtn');
+    // 给按钮添加点击事件
+    btn.addEventListener('click', function() {
+        try {
+            // 调用 js向android 原生发送消息
+            window.JSBridge.postMessage("run");
+            console.log('成功: postMessage 调用成功 !!! ');
+        } catch (error) {
+            console.log(`错误: ${error.message}`);
+        }
+    });
+</script>
+</body>
 </html>
